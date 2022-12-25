@@ -9,6 +9,9 @@ type Props = {
 }
 
 const CoverImage = ({ title, src, slug }: Props) => {
+  if (src == null) {
+    return null;
+  }
   const image = (
     <Image
       src={src}
