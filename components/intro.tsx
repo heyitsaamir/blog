@@ -1,5 +1,3 @@
-import { CMS_NAME } from '../lib/constants';
-
 const Intro = () => {
   return (
     <section className="flex-row items-center md:justify-between pt-16 pb-16 pd:pb-12">
