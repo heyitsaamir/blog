@@ -1,6 +1,6 @@
-import Container from './container'
+import Container from './container';
 
-const year = new Date().getFullYear()
+const year = new Date().getFullYear();
 
 const Footer = () => {
   return (
@@ -10,13 +10,11 @@ const Footer = () => {
           <h3 className="text-sm font-light">
             This page is made by me in Seattle
           </h3>
-          <div className="text-sm font-light">
-            © {year} Aamir Jawaid
-          </div>
+          <div className="text-sm font-light">© {year} Aamir Jawaid</div>
         </div>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -32,11 +32,11 @@ Hurray! Now we're cooking. We have some context from the message that's opened, 
 
 ```jsx
 function loadAddOn(event) {
-  var accessToken = event.gmail.accessToken
-  var messageId = event.gmail.messageId
-  GmailApp.setCurrentMessageAccessToken(accessToken)
-  var mailMessage = GmailApp.getMessageById(messageId)
-  var from = mailMessage.getFrom()
+  var accessToken = event.gmail.accessToken;
+  var messageId = event.gmail.messageId;
+  GmailApp.setCurrentMessageAccessToken(accessToken);
+  var mailMessage = GmailApp.getMessageById(messageId);
+  var from = mailMessage.getFrom();
 
   var openDocButton = CardService.newTextButton()
     .setText('open docs')
@@ -44,7 +44,7 @@ function loadAddOn(event) {
       CardService.newOpenLink().setUrl(
         'https://developers.google.com/gmail/add-ons/'
       )
-    )
+    );
 
   var card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader().setTitle('My First Gmail Addon'))
@@ -55,9 +55,9 @@ function loadAddOn(event) {
         )
         .addWidget(openDocButton)
     )
-    .build()
+    .build();
 
-  return [card]
+  return [card];
 }
 ```
 
@@ -93,46 +93,46 @@ For the `Pending Action` sheet, we will have the following columns:
 The db creation code looked something like this:
 
 ```jsx
-const DB_NAME = 'AutoDelete-DB'
-const METATDATA_SHEET = 'Metadata'
-const PENDING_ACTIONS = 'Pending Actions'
+const DB_NAME = 'AutoDelete-DB';
+const METATDATA_SHEET = 'Metadata';
+const PENDING_ACTIONS = 'Pending Actions';
 
 function getDb() {
-  var existingSheet = DriveApp.getFilesByName(DB_NAME)
+  var existingSheet = DriveApp.getFilesByName(DB_NAME);
   if (!existingSheet.hasNext()) {
-    return null
+    return null;
   }
 
-  const spreadSheet = SpreadsheetApp.open(existingSheet.next())
+  const spreadSheet = SpreadsheetApp.open(existingSheet.next());
   return {
     metadataSheet: spreadSheet.getSheetByName(METATDATA_SHEET),
     pendingDeletionSheets: spreadSheet.getSheetByName(PENDING_DELETIONS),
-  }
+  };
 }
 
 function getOrCreateDb() {
-  var existingDb = getDb()
+  var existingDb = getDb();
   if (existingDb == null) {
-    var existingSheet = DriveApp.getFilesByName(DB_NAME)
-    var newSpreadsheet = SpreadsheetApp.create(DB_NAME)
-    var metadataSheet = newSpreadsheet.getSheets()[0]
-    metadataSheet.setName(METATDATA_SHEET)
+    var existingSheet = DriveApp.getFilesByName(DB_NAME);
+    var newSpreadsheet = SpreadsheetApp.create(DB_NAME);
+    var metadataSheet = newSpreadsheet.getSheets()[0];
+    metadataSheet.setName(METATDATA_SHEET);
     metadataSheet.appendRow([
       'Sender',
       'Matcher',
       'Take Action After',
       'Action Type',
-    ])
+    ]);
 
-    var pendingActionsSheets = newSpreadsheet.insertSheet(PENDING_ACTIONS)
-    pendingActionsSheets.appendRow(['Thread Id', 'Action Time', 'Action Type'])
+    var pendingActionsSheets = newSpreadsheet.insertSheet(PENDING_ACTIONS);
+    pendingActionsSheets.appendRow(['Thread Id', 'Action Time', 'Action Type']);
 
     return {
       metadataSheet,
       pendingActionsSheets,
-    }
+    };
   } else {
-    return existingDb
+    return existingDb;
   }
 }
 ```

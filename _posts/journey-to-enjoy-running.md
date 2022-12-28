@@ -6,7 +6,7 @@ date: '2022-11-18T12:15:00-0800Z'
 
 I absolutely hated running. Until one of my coworkers (thanks Jasper!) taught me that to enjoy running is to appreciate the journey more than the end. What most people do is just focus on getting there - finishing the run, chasing the feeling after the run, checking it off their to-do list. But to actually get good at running, or to even enjoy it, you need to completely ignore the end. What matters is running itself.
 
-What this means is to forget about things like pace, and distance. Just care about _time_. How can you run for X minutes straight. Then overtime, and if you care for it, how can you run for X + Y minutes straight. For most of us it's through running slowly. For most of us this means running for shorter periods of time, or for running slow. No, _slooooow_. 
+What this means is to forget about things like pace, and distance. Just care about _time_. How can you run for X minutes straight. Then overtime, and if you care for it, how can you run for X + Y minutes straight. For most of us it's through running slowly. For most of us this means running for shorter periods of time, or for running slow. No, _slooooow_.
 
 Slow enough that you could have a conversation with a person. Slow enough that you don't need to listen to fast-paced music to get through running, but instead you are able to listen to an audiobook or a podcast. The idea is that as you go slow, you build up endurance and muscle strength at the same time. And over time, your pace, and speed all improve automatically. At least, enough to plant that seed that will make you enjoy and appreciate running.
 

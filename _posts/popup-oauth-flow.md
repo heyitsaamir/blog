@@ -48,7 +48,7 @@ To combat this, a typical flow is to pop open a popup to do the oauth flow and t
 2. Once we make this call, we are going to start listening for a particular event message on the current window. This message will be sent from our popup window to inform this window that the oauth has been completed. That code will look like this:
 
    ```tsx
-   const OAUTH_COMPLETED_MESSAGE = "OAUTH_COMPLETED_MESSAGE";
+   const OAUTH_COMPLETED_MESSAGE = 'OAUTH_COMPLETED_MESSAGE';
    const oauthLink = getOauthLink();
    const openPopup = useCallback(() => {
      if (setupLink == null) {
@@ -64,7 +64,7 @@ To combat this, a typical flow is to pop open a popup to do the oauth flow and t
      );
      if (popup != null) {
        addEventListener(
-         "message",
+         'message',
          (e) => {
            if (e.origin !== origin) {
              // Other websites could send messages too, we don't care about those.
@@ -91,7 +91,7 @@ To combat this, a typical flow is to pop open a popup to do the oauth flow and t
        return;
      }
 
-     window.opener.postMessage(OAUTH_COMPLETED_MESSAGE, "*");
+     window.opener.postMessage(OAUTH_COMPLETED_MESSAGE, '*');
    }
    ```
 

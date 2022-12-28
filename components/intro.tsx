@@ -1,4 +1,4 @@
-import { CMS_NAME } from '../lib/constants'
+import { CMS_NAME } from '../lib/constants';
 
 const Intro = () => {
   return (
@@ -7,7 +7,7 @@ const Intro = () => {
         aamir j.
       </h1>
     </section>
-  )
-}
+  );
+};
 
-export default Intro
+export default Intro;
