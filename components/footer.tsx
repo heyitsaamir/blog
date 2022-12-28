@@ -1,5 +1,6 @@
 import Container from './container'
-import { EXAMPLE_PATH } from '../lib/constants'
+
+const year = new Date().getFullYear()
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
             This page is made by me in Seattle
           </h3>
           <div className="text-sm font-light">
-            © 2022 Aamir Jawaid
+            © {year} Aamir Jawaid
           </div>
         </div>
       </Container>
