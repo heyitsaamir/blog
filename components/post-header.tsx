@@ -6,7 +6,7 @@ import type Author from '../interfaces/author';
 
 type Props = {
   title: string;
-  coverImage: string;
+  coverImage?: string;
   date: string;
 };
 
@@ -14,9 +14,9 @@ const PostHeader = ({ title, coverImage, date }: Props) => {
   return (
     <>
       <PostTitle>{title}</PostTitle>
-      <div className="mb-8 md:mb-16 sm:mx-0">
+      {coverImage && <div className="mb-8 md:mb-16 sm:mx-0">
         <CoverImage title={title} src={coverImage} />
-      </div>
+      </div>}
       <div className="max-w-2xl mx-auto">
         <div className="mb-6 text-lg text-center">
           <DateFormatter dateString={date} />

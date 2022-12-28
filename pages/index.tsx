@@ -23,6 +23,7 @@ export default function Index({ allPosts }: Props) {
         </Head>
         <Container>
           <Intro />
+          <section className='md:mx-48'>
           {heroPost && (
             <HeroPost
               title={heroPost.title}
@@ -33,6 +34,7 @@ export default function Index({ allPosts }: Props) {
             />
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          </section>
         </Container>
       </Layout>
     </>
