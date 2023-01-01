@@ -3,28 +3,20 @@ import Header from '../components/header';
 import Layout from '../components/layout';
 import { getRaindrops } from '../lib/raindrop';
 import type { Bookmark } from '../interfaces/bookmark';
+import { SingleBookmark } from '../components/SingleBookmark';
 
 type Props = {
   bookmarks: Bookmark[];
 };
 
-const SingleBookmark = ({ bookmark }: { bookmark: Bookmark }) => {
-  return (
-    <div className="flex flex-col">
-      <div className="text-lg hover:underline underline-offset-2">
-        <a href={bookmark.link}>{bookmark.title}</a>
-      </div>
-      <div>{bookmark.excerpt}</div>
-    </div>
-  );
-};
-
-export default function Test({ bookmarks }: Props) {
+export default function Bookmarks({ bookmarks }: Props) {
   return (
     <Layout>
       <Container>
         <Header />
-        <div className="text-xl">Bookmarks</div>
+        <h2 className="mb-8 text-3xl md:text-5xl font-bold tracking-tighter leading-tight">
+          Bookmarks
+        </h2>
         <ul className="flex flex-col gap-8">
           {bookmarks.map((bookmark) => {
             return (

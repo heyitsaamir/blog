@@ -7,14 +7,16 @@ import { getAllPosts } from '../lib/api';
 import Head from 'next/head';
 import { CMS_NAME } from '../lib/constants';
 import Post from '../interfaces/post';
+import { getRaindrops } from '../lib/raindrop';
+import { Bookmark } from '../interfaces/bookmark';
+import { SingleBookmark } from '../components/SingleBookmark';
 
 type Props = {
-  allPosts: Post[];
+  latestPost: Post;
+  bookmarks: Bookmark[];
 };
 
-export default function Index({ allPosts }: Props) {
-  const heroPost = allPosts[0];
-  const morePosts = allPosts.slice(1);
+export default function Index({ latestPost, bookmarks }: Props) {
   return (
     <>
       <Layout>
@@ -23,17 +25,32 @@ export default function Index({ allPosts }: Props) {
         </Head>
         <Container>
           <Intro />
-          <section className='md:mx-48'>
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-            />
-          )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          <section className="md:mx-48 flex flex-col gap-8">
+            {latestPost && (
+              <HeroPost
+                title={latestPost.title}
+                coverImage={latestPost.coverImage}
+                date={latestPost.date}
+                slug={latestPost.slug}
+                excerpt={latestPost.excerpt}
+              />
+            )}
+            {bookmarks && (
+              <div className=" bg-stone-600 p-8 rounded-md">
+                <h2 className="mb-4 text-lg font-bold tracking-tighter leading-tight">
+                  Bookmarks
+                </h2>
+                <ul className="flex flex-col gap-8">
+                  {bookmarks.map((bookmark) => {
+                    return (
+                      <li key={bookmark._id}>
+                        <SingleBookmark bookmark={bookmark} />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </section>
         </Container>
       </Layout>
@@ -51,7 +68,9 @@ export const getStaticProps = async () => {
     'excerpt',
   ]);
 
+  const bookmarks = await getRaindrops();
+
   return {
-    props: { allPosts },
+    props: { latestPost: allPosts.at(0), bookmarks },
   };
 };

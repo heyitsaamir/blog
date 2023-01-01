@@ -14,10 +14,12 @@ type Props = {
 
 const HeroPost = ({ title, coverImage, date, excerpt, slug }: Props) => {
   return (
-    <section>
-      {coverImage && <div className="mb-8 md:mb-16">
-        <CoverImage title={title} src={coverImage} slug={slug} />
-      </div>}
+    <section className="border-b border-stone-600">
+      {coverImage && (
+        <div className="mb-8 md:mb-16">
+          <CoverImage title={title} src={coverImage} slug={slug} />
+        </div>
+      )}
       <div className="md:grid md:gap-x-16 lg:gap-x-8 mb-10">
         <div>
           <h3 className="text-4xl lg:text-5xl leading-tight">
