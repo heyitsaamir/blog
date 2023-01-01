@@ -120,4 +120,4 @@ export interface Bookmark {
 }
 ```
 
-Now we can have additional typesafety with the `created`, `lastUpdate`, `link` and `_id` fields.
+Now we can have additional typesafety with the `created`, `lastUpdate`, `link` and `_id` fields. Here is a typescript [playground](https://www.typescriptlang.org/play?ssl=25&ssc=2&pln=19&pc=1#code/KYDwDg9gTgLgBDAnmYcBCUCGA7AJsXAZRigEtsBzAHgBUA5TAW1VBmDwGc4OTyKA+OAF5uvSnABkcAN5wA+gCMseAFxx6TVAF8A3ACg9oSLATJUASUIB5ACKY2xMuJEYc+ImOoByS7fvBHUghKL359PQAzAFdsAGMYIOw4WOCAN2BYGgg7NgAKUg5s-0DKNV8cgM8ASjUKmT0ASChgGCioJOxgAHc4CvzCipKKKv0tAxTsHjhMMFJBz2E4LwAmAAZlgGYAWlWARh3dmlXVlWWAThUN5YA6ABYN3YAtL2mucuLPcIAbFuS0jLYuDqIgm6UyRTyMzmHycwx0cAA9Ai4BAANaYRAAQnGwSmUQ4GXM2DAURg81hiy8ACkcFFMFBEHBdjwADRwNabLzhUEAgjAuB-bBgmBZPr4wnE0nkvgjPQC+UKxVK5WI5EAPQ1mq12q1cpV+oNSPUZiWPFhLwKcGwEHgmA4HFIFGwmAUPwQEFMKCWskUylwagARO8HLxghQA-CtF4cZN4AVg5UKSJ8pKYGozTK1OQSXG3tZpeJpI1mq12nACgw6Llcp0en0vHbcBFGxEvFUqtcKC0aKRmLl26MDKQInB+gmhrlxVAiTmC8MqvUGhMprh-IseeCxQTp6m5wujWiMditEA) with the above concepts.
