@@ -93,7 +93,7 @@ If a variable is assigned to an `ISODateString` type then, it's safe to be sent 
 ```
 const isISODateString = (input: string): input is ISODateString {
   // Really naiive way to do validation, lol
-	return isNaN((new Date(input)).getTime());
+	return !isNaN((new Date(input)).getTime());
 }
 
 if (isISODateString(userInputDateString)) {
@@ -103,7 +103,7 @@ if (isISODateString(userInputDateString)) {
 
 We use this technique across the codebase at my company. We use it for entity ids (there is no point in comparing `UserId` and `ComopanyId` since they are always a disjoineted set).
 
-In fact, as I was building out the [bookmarks](http://aamirj.com/bookmarks) page, the API (I use [Raindrop.Io](https://developer.raindrop.io/)) returned a `createdAt` field. I had to build a type for the json anyway, so my type looks something like this:
+In fact, as I was building out the [bookmarks](http://www.aamirj.com/bookmarks) page, the API (I use [Raindrop.Io](https://developer.raindrop.io/)) returned a `createdAt` field. I had to build a type for the json anyway, so my type looks something like this:
 
 ```
 export type BookmarkId = BrandedNumber<'BookmarkId'>
