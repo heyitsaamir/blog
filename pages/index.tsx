@@ -36,7 +36,7 @@ export default function Index({ latestPost, bookmarks }: Props) {
               />
             )}
             {bookmarks && (
-              <div className=" bg-stone-600 p-8 rounded-md">
+              <div className=" dark:bg-stone-600 bg-stone-200 p-8 rounded-md">
                 <h2 className="mb-4 text-lg font-bold tracking-tighter leading-tight">
                   Bookmarks
                 </h2>
