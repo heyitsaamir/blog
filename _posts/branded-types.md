@@ -44,7 +44,6 @@ But what happens when two variables are of the same data type:
 function convertToDate(isoDateString: string): Date {
 	return new Date(isoString);
 }
-
 ```
 
 In this example, `convertToDate` takes in an isoString and converts it to a date object. This is an extremely common operation in javascript. Many APIs will return json results with iso dates typed as strings and it's the responsbility of the client to convert the value to a `Date` object if the client needs to use it as a date. The `convertToDate` function here takes _any_ string as an input which can lead to a false sense of security that the code we're writing is unsafe. Take this code for example:
@@ -67,18 +66,18 @@ Is it possible for us to differentiate the types of `apiDateString` and `userInp
 
 ```
 function convertToDate(isoDateString: ISODateString): Date {
-	return new Date(isoString);
+	return new Date(isoDateString);
 }
 
-const apiDateString: ISODateString = '2023-01-01T00:29:32.431Z';
+const apiDateString = '2023-01-01T00:29:32.431Z' as ISODateString;
 
 let convertedDate = convertToDate(apiDateString); // okay!
 
-...
+const userInputDateString = 'January 1st, 2023';
 
-const userInputDateString: string = 'January 1st, 2023';
-
-convertedDate =  convertToDate(poorlyNamedVariable); // not typesafe! expected ISODateString but got string.
+convertedDate = convertToDate(userInputDateString);
+                           // ^^^^^^^^^^^^^^^^^^^
+                           // Type 'string' is not assignable to type '{ _brand: "ISODateStriong"; }'
 ```
 
 If we could create completely new type safe data types, the above would give us a compile time error. The `convertToDate` function only accepts `ISODateString` types. If you (or an api) is providing some guarantee that the value being supplied _is_ an `ISODateString` type, then the code will compile. Otherwise, it'll throw a compile-time error. This is in fact possible with typescript. Here is what a generic string `Brand` type looks like:
@@ -92,8 +91,9 @@ export type ISODateString = BrandedString<'ISODateStriong'>;
 If a variable is assigned to an `ISODateString` type then, it's safe to be sent to `convertToDate`. Ofcourse, you can use [Narrowing and type-predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to perform validation from a regular string to assert that the string _is_ in fact a branded string.
 
 ```
-const isISODateString(input: string): input is ISODateString {
-	// perform validation in input
+const isISODateString = (input: string): input is ISODateString {
+  // Really naiive way to do validation, lol
+	return isNaN((new Date(input)).getTime());
 }
 
 if (isISODateString(userInputDateString)) {
