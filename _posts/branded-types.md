@@ -107,7 +107,7 @@ We use this technique across the codebase at my company. We use it for:
 2. data that has a unique format for data transmission (like date strings)
 3. metrics (weight metrics should never really be compared against spatial metrics)
 
-In fact, as I was building out the [bookmarks](http://www.aamirj.com/bookmarks) page, the API (I use [Raindrop.Io](https://developer.raindrop.io/)) returned a `createdAt` field. I had to build a type for the json anyway, so my type looks something like this:
+In fact, as I was building out the [bookmarks](http://www.aamirj.com/bookmarks) page, the API (I use [Raindrop.Io](https://developer.raindrop.io/)) returned a format that resembled fields that contained some of the above types of data. I had to build a type for the json anyway, so my type looks something like this:
 
 ```
 export type BookmarkId = BrandedNumber<'BookmarkId'>
