@@ -103,7 +103,7 @@ if (isISODateString(userInputDateString)) {
 
 We use this technique across the codebase at my company. We use it for:
 
-1. entity ids (there is no point in comparing `UserId` and `ComopanyId` since they are always a disjoineted set).
+1. entity ids (there is no point in comparing `UserId` and `CompanyId` since they are always a disjoineted set).
 2. data that has a unique format for data transmission (like date strings)
 3. metrics (weight metrics should never really be compared against spatial metrics)
 
