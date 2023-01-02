@@ -96,7 +96,7 @@ If a variable is assigned to an `ISODateString` type then, it's safe to be sent 
 
 ```
 const isISODateString = (input: string): input is ISODateString {
-  // Really naiive way to do validation, lol
+  // Really naive way to do validation, lol
 	return !isNaN((new Date(input)).getTime());
 }
 
