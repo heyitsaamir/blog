@@ -6,4 +6,8 @@
   a {
     @apply hover:underline;
   }
+
+  time {
+    @apply italic;
+  }
 }
