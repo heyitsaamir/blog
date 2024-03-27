@@ -1,12 +1,6 @@
 import grayMatter from 'gray-matter';
-import mdx from '@mdx-js/mdx';
-import fetch from 'node-fetch';
 import { GH_USER, GH_REPO } from './siteConfig';
-import parse from 'parse-link-header';
 import slugify from 'slugify';
-import rehypeStringify from 'rehype-stringify';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutoLink from 'rehype-autolink-headings';
 import { Octokit } from '@octokit/rest';
 import type PostType from '../interfaces/post';
 import { GetResponseDataTypeFromEndpointMethod } from '@octokit/types';
@@ -15,14 +9,8 @@ if (!process.env.GH_TOKEN) {
   throw new Error('Please set the GH_TOKEN environment variable');
 }
 
-const remarkPlugins = undefined;
-const rehypePlugins = [rehypeStringify, rehypeSlug, rehypeAutoLink];
-
 const publishedTags = ['Published'];
-let allBlogposts = [];
-
 const octokit = new Octokit({ auth: process.env.GH_TOKEN });
-
 type GHIssue = GetResponseDataTypeFromEndpointMethod<
   typeof octokit.issues.listForRepo
 >[number];
