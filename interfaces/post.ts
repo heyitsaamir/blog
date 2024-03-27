@@ -10,6 +10,7 @@ type PostType = {
     url: string;
   };
   content: string;
+  labels: string[];
 };
 
 export default PostType;
