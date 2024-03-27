@@ -27,10 +27,11 @@ type GHIssue = GetResponseDataTypeFromEndpointMethod<
   typeof octokit.issues.listForRepo
 >[number];
 
+// TODO:Handle the pagination of the GitHub API
 export async function getAllPosts(page: number = 1) {
   const result = await octokit.request('GET /repos/{owner}/{repo}/issues', {
     page: page,
-    per_page: 10,
+    per_page: 100,
     owner: GH_USER,
     repo: GH_REPO,
     labels: publishedTags.join(','),
