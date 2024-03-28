@@ -28,6 +28,14 @@ export async function getAllPosts(page: number = 1) {
   return result.data.map((issue) => parseIssue(issue));
 }
 
+const fetchWrapper = async (...args: Parameters<typeof fetch>) => {
+    const [url, options] = args
+    return await fetch(url, {
+        ...options,
+        next: { revalidate: 3600 } // revalidate every hour
+    });
+    }
+
 export async function getPostBySlug(slug: string) {
   const realSlug = slug.replace(/\.md$/, '');
   const id = Number(realSlug.split('_')[0] ?? -1);
@@ -42,6 +50,9 @@ export async function getPostBySlug(slug: string) {
       owner: GH_USER,
       repo: GH_REPO,
       labels: publishedTags.join(','),
+      request: {
+        fetch: fetchWrapper,
+      }
     }
   );
 
