@@ -1,9 +1,9 @@
-import Container from '../components/container';
-import Header from '../components/header';
-import Layout from '../components/layout';
-import { getRaindrops } from '../lib/raindrop';
-import type { Bookmark } from '../interfaces/bookmark';
-import { SingleBookmark } from '../components/SingleBookmark';
+import Container from "../components/container";
+import Header from "../components/header";
+import Layout from "../components/layout";
+import { getRaindrops } from "../lib/raindrop";
+import type { Bookmark } from "../interfaces/bookmark";
+import { SingleBookmark } from "../components/SingleBookmark";
 
 type Props = {
   bookmarks: Bookmark[];

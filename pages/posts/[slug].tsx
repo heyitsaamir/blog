@@ -11,6 +11,7 @@ import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
 import markdownToHtml from "../../lib/markdownToHtml";
 import type PostType from "../../interfaces/post";
+import PostFooter from "../../components/post-footer";
 
 type Props = {
   post: PostType;
@@ -42,6 +43,7 @@ export default function Post({ post, morePosts, preview }: Props) {
                 date={post.date}
               />
               <PostBody content={post.content} />
+              <PostFooter labels={post.labels} />
             </article>
           </>
         )}

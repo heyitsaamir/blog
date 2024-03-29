@@ -1,8 +1,8 @@
-import Avatar from './avatar';
-import DateFormatter from './date-formatter';
-import CoverImage from './cover-image';
-import Link from 'next/link';
-import type Author from '../interfaces/author';
+import Avatar from "./avatar";
+import DateFormatter from "./date-formatter";
+import CoverImage from "./cover-image";
+import Link from "next/link";
+import type Author from "../interfaces/author";
 
 type Props = {
   title: string;
@@ -15,9 +15,11 @@ type Props = {
 const PostPreview = ({ title, coverImage, date, excerpt, slug }: Props) => {
   return (
     <div>
-      {coverImage && <div className="mb-5">
-        <CoverImage slug={slug} title={title} src={coverImage} />
-      </div>}
+      {coverImage && (
+        <div className="mb-5">
+          <CoverImage slug={slug} title={title} src={coverImage} />
+        </div>
+      )}
       <h3 className="text-3xl leading-snug">
         <Link
           as={`/posts/${slug}`}

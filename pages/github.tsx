@@ -15,11 +15,8 @@ export default function Bookmarks({ posts }: Props) {
       <Container>
         <Header />
         <h2 className="text-6xl font-bold text-center">Posts</h2>
-        <pre>
-            {JSON.stringify(posts, null, 2)}
-        </pre>
-        {
-          /* <ul className="flex flex-col gap-8">
+        <pre>{JSON.stringify(posts, null, 2)}</pre>
+        {/* <ul className="flex flex-col gap-8">
           {bookmarks.map((bookmark) => {
             return (
               <li key={bookmark._id}>
@@ -27,8 +24,7 @@ export default function Bookmarks({ posts }: Props) {
               </li>
             );
           })}
-        </ul> */
-        }
+        </ul> */}
       </Container>
     </Layout>
   );

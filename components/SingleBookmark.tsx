@@ -1,4 +1,4 @@
-import { Bookmark } from '../interfaces/bookmark';
+import { Bookmark } from "../interfaces/bookmark";
 
 export const SingleBookmark = ({ bookmark }: { bookmark: Bookmark }) => {
   return (
