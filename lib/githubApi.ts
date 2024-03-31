@@ -9,7 +9,9 @@ if (!process.env.GH_TOKEN) {
   throw new Error("Please set the GH_TOKEN environment variable");
 }
 
-const publishedTags = ["Published"];
+const publishedTags =
+  process.env.NODE_ENV === "development" ? ["Draft"] : ["Published"];
+
 const octokit = new Octokit({ auth: process.env.GH_TOKEN });
 type GHIssue = GetResponseDataTypeFromEndpointMethod<
   typeof octokit.issues.listForRepo
@@ -36,7 +38,7 @@ export async function getAllPosts(page: number = 1) {
     },
   });
 
-  return result.data.map((issue) => parseIssue(issue));
+  return result.data.map(parseIssue);
 }
 
 export async function getPostBySlug(slug: string) {
@@ -56,7 +58,7 @@ export async function getPostBySlug(slug: string) {
       request: {
         fetch: fetchWrapper,
       },
-    }
+    },
   );
 
   return parseIssue(result.data);
@@ -73,6 +75,9 @@ function parseIssue(issue: GHIssue): PostType {
     slug = slugify(issue.number + "_" + title);
   }
   let date = data.data.date ?? issue.created_at;
+  const labelNames = issue.labels
+    .map((label) => (typeof label === "string" ? label : label.name))
+    .filter((label): label is NonNullable<typeof label> => !!label);
 
   return {
     content: data.content,
@@ -80,9 +85,7 @@ function parseIssue(issue: GHIssue): PostType {
     slug: slug.toLowerCase(),
     date: date,
     excerpt: data.data.excerpt ?? "",
-    labels: issue.labels
-      .map((label) => (typeof label === "string" ? label : label.name))
-      .filter((label): label is NonNullable<typeof label> => !!label)
-      .filter((label) => !publishedTags.includes(label)),
+    labels: labelNames.filter((label) => !publishedTags.includes(label)),
+    isDraft: labelNames.some((label) => label === "Draft"),
   };
 }

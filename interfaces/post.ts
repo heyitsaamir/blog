@@ -11,6 +11,7 @@ type PostType = {
   };
   content: string;
   labels: string[];
+  isDraft?: boolean;
 };
 
 export default PostType;

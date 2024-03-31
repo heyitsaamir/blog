@@ -63,6 +63,6 @@ export const getStaticProps = async () => {
   const bookmarks = await getRaindrops();
 
   return {
-    props: { latestPost: allPosts.at(0), bookmarks },
+    props: { latestPost: allPosts.at(0) ?? null, bookmarks },
   };
 };
