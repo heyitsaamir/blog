@@ -12,7 +12,12 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeSanitize)
+    .use(rehypeSanitize, {
+      attributes: {
+        "*": ["className"], // Allow classnames for mermaid figures to be added
+        img: ["src", "alt"], // Allow src and alt for images
+      },
+    })
     .use(rehypeMermaid, { strategy: "pre-mermaid" })
     .use(rehypeFormat)
     .use(rehypeStringify)
