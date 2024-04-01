@@ -3,7 +3,7 @@ import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeMermaid from "rehype-mermaid";
-import rehypeSanitize from "rehype-sanitize";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import rehypeRaw from "rehype-raw";
 import { unified } from "unified";
 
@@ -13,9 +13,10 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeSanitize, {
+      ...defaultSchema,
       attributes: {
-        "*": ["className"], // Allow classnames for mermaid figures to be added
-        img: ["src", "alt"], // Allow src and alt for images
+        ...defaultSchema.attributes,
+        "*": ["className"], // To allow mermaid classes to continue to work
       },
     })
     .use(rehypeMermaid, { strategy: "pre-mermaid" })
