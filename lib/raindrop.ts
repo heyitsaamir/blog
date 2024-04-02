@@ -19,6 +19,10 @@ type RaindropApiResponse =
     };
 
 export async function getRaindrops() {
+  if (!process.env.RAINDROP_TOKEN) {
+    return null;
+  }
+
   try {
     const raindropsRes = await raindropAxios.get<RaindropApiResponse>(
       `raindrops/${PUBLIC_RAINDROP_ID}`,
