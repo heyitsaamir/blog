@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LinkButton } from "./LinkButton";
 
 const Intro = () => {
   return (
@@ -7,7 +8,9 @@ const Intro = () => {
         aamir j.
       </h1>
       <div className="flex flex-row gap-4 justify-center">
-        <Link href="/posts">More Posts</Link>
+        <LinkButton href="/posts" className="bg-stone-700">
+          More Posts
+        </LinkButton>
       </div>
     </section>
   );

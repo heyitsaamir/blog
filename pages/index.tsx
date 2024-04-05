@@ -9,11 +9,15 @@ import Post from "../interfaces/post";
 import { getRaindrops } from "../lib/raindrop";
 import { Bookmark } from "../interfaces/bookmark";
 import { SingleBookmark } from "../components/SingleBookmark";
+import Link from "next/link";
+import { LinkButton } from "../components/LinkButton";
 
 type Props = {
   latestPost: Post;
   bookmarks: Bookmark[];
 };
+
+export const revalidate = 3600; // revalidate every hour
 
 export default function Index({ latestPost, bookmarks }: Props) {
   return (
@@ -35,7 +39,7 @@ export default function Index({ latestPost, bookmarks }: Props) {
               />
             )}
             {bookmarks && (
-              <div className=" dark:bg-stone-600 bg-stone-200 p-8 rounded-md">
+              <div className=" dark:bg-stone-600 bg-stone-200 p-8 rounded-md shadow-md">
                 <h2 className="mb-4 text-lg font-bold tracking-tighter leading-tight">
                   Bookmarks
                 </h2>
@@ -48,6 +52,9 @@ export default function Index({ latestPost, bookmarks }: Props) {
                     );
                   })}
                 </ul>
+                <div className="flex mt-4 justify-end">
+                  <LinkButton href="/bookmarks">More &rarr;</LinkButton>
+                </div>
               </div>
             )}
           </section>
@@ -60,7 +67,7 @@ export default function Index({ latestPost, bookmarks }: Props) {
 export const getStaticProps = async () => {
   const allPosts = await getAllPosts();
 
-  const bookmarks = await getRaindrops();
+  const bookmarks = (await getRaindrops())?.slice(0, 5);
 
   return {
     props: { latestPost: allPosts.at(0) ?? null, bookmarks },

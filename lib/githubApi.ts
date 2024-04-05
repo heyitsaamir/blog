@@ -27,18 +27,23 @@ const fetchWrapper = async (...args: Parameters<typeof fetch>) => {
 
 // TODO:Handle the pagination of the GitHub API
 export async function getAllPosts(page: number = 1) {
-  const result = await octokit.request("GET /repos/{owner}/{repo}/issues", {
-    page: page,
-    per_page: 100,
-    owner: GH_USER,
-    repo: GH_REPO,
-    labels: publishedTags.join(","),
-    request: {
-      fetch: fetchWrapper,
-    },
-  });
+  try {
+    const result = await octokit.request("GET /repos/{owner}/{repo}/issues", {
+      page: page,
+      per_page: 100,
+      owner: GH_USER,
+      repo: GH_REPO,
+      labels: publishedTags.join(","),
+      request: {
+        fetch: fetchWrapper,
+      },
+    });
+    return result.data.map(parseIssue);
+  } catch (e) {
+    console.log(`Error getting posts ${e instanceof Error ? e.message : ""}`);
+  }
 
-  return result.data.map(parseIssue);
+  return [];
 }
 
 export async function getPostBySlug(slug: string) {
