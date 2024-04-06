@@ -17,7 +17,7 @@ export default function Bookmarks({ bookmarks }: Props) {
       <Container>
         <Header />
         <h2 className="mb-8 text-6xl font-bold text-center">Bookmarks</h2>
-        <ul className="flex flex-col px-20">
+        <ul className="flex flex-col px-2 md:px-20">
           {bookmarks.map((bookmark) => {
             return (
               <li
