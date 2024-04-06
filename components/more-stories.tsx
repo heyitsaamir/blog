@@ -7,9 +7,9 @@ type Props = {
 
 const MoreStories = ({ posts }: Props) => {
   return (
-    <section>
+    <>
       <h2 className="text-6xl font-bold text-center">Posts</h2>
-      <div className="grid grid-cols-1 md:w-4/5 gap-y-8">
+      <div className="grid grid-cols-1 gap-y-8 px-20">
         {posts.map((post) => (
           <PostPreview
             key={post.slug}
@@ -21,7 +21,7 @@ const MoreStories = ({ posts }: Props) => {
           />
         ))}
       </div>
-    </section>
+    </>
   );
 };
 

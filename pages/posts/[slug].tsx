@@ -29,7 +29,7 @@ export default function Post({ post, morePosts, preview }: Props) {
         <Header />
         {router.isFallback ? <PostTitle>Loading…</PostTitle> : (
           <>
-            <article className="mb-32">
+            <article className="mb-32 mt-20">
               <Head>
                 <title>{post.title}</title>
                 {post.ogImage?.url && (

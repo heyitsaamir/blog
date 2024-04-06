@@ -1,5 +1,4 @@
 import Container from "../components/container";
-import MoreStories from "../components/more-stories";
 import HeroPost from "../components/hero-post";
 import Intro from "../components/intro";
 import Layout from "../components/layout";
@@ -9,7 +8,6 @@ import Post from "../interfaces/post";
 import { getRaindrops } from "../lib/raindrop";
 import { Bookmark } from "../interfaces/bookmark";
 import { SingleBookmark } from "../components/SingleBookmark";
-import Link from "next/link";
 import { LinkButton } from "../components/LinkButton";
 
 type Props = {
@@ -38,6 +36,11 @@ export default function Index({ latestPost, bookmarks }: Props) {
                 excerpt={latestPost.excerpt}
               />
             )}
+            <div className="flex flex-row gap-4 justify-center">
+              <LinkButton href="/posts" className="bg-stone-700">
+                More Posts
+              </LinkButton>
+            </div>
             {bookmarks && (
               <div className=" dark:bg-stone-600 bg-stone-200 p-8 rounded-md shadow-md">
                 <h2 className="mb-4 text-lg font-bold tracking-tighter leading-tight">
@@ -67,7 +70,7 @@ export default function Index({ latestPost, bookmarks }: Props) {
 export const getStaticProps = async () => {
   const allPosts = await getAllPosts();
 
-  const bookmarks = (await getRaindrops())?.slice(0, 5);
+  const bookmarks = (await getRaindrops())?.slice(0, 5) ?? null;
 
   return {
     props: { latestPost: allPosts.at(0) ?? null, bookmarks },

@@ -10,7 +10,7 @@ if (!process.env.GH_TOKEN) {
 }
 
 const publishedTags =
-  process.env.NODE_ENV === "development" ? ["Draft"] : ["Published"];
+  process.env.NODE_ENV === "development" ? ["Published"] : ["Published"];
 
 const octokit = new Octokit({ auth: process.env.GH_TOKEN });
 type GHIssue = GetResponseDataTypeFromEndpointMethod<

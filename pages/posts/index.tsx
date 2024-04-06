@@ -16,7 +16,7 @@ export default function Index({ allPosts }: Props) {
       <Layout>
         <Container>
           <Header />
-          <section className="md:mx-48">
+          <section>
             <MoreStories posts={allPosts} />
           </section>
         </Container>

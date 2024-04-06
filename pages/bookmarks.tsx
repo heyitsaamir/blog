@@ -17,10 +17,13 @@ export default function Bookmarks({ bookmarks }: Props) {
       <Container>
         <Header />
         <h2 className="mb-8 text-6xl font-bold text-center">Bookmarks</h2>
-        <ul className="flex flex-col gap-8">
+        <ul className="flex flex-col px-20">
           {bookmarks.map((bookmark) => {
             return (
-              <li key={bookmark._id}>
+              <li
+                key={bookmark._id}
+                className="p-4 border-b-2 border-b-stone-500 last:border-none"
+              >
                 <SingleBookmark bookmark={bookmark} />
               </li>
             );
