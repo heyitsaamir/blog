@@ -2,33 +2,10 @@ import Container from "../components/container";
 import Header from "../components/header";
 import Layout from "../components/layout";
 import { getAllPosts, getPostBySlug } from "../lib/githubApi";
-import type { Bookmark } from "../interfaces/bookmark";
-import { SingleBookmark } from "../components/SingleBookmark";
 
 type Props = {
   posts: any;
 };
-
-export default function Bookmarks({ posts }: Props) {
-  return (
-    <Layout>
-      <Container>
-        <Header />
-        <h2 className="text-6xl font-bold text-center">Posts</h2>
-        <pre>{JSON.stringify(posts, null, 2)}</pre>
-        {/* <ul className="flex flex-col gap-8">
-          {bookmarks.map((bookmark) => {
-            return (
-              <li key={bookmark._id}>
-                <SingleBookmark bookmark={bookmark} />
-              </li>
-            );
-          })}
-        </ul> */}
-      </Container>
-    </Layout>
-  );
-}
 
 type Params = {
   params: {

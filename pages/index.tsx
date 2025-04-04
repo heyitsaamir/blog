@@ -1,23 +1,17 @@
 import Container from "../components/container";
-import HeroPost from "../components/hero-post";
-import Intro from "../components/intro";
 import Layout from "../components/layout";
 import { getAllPosts } from "../lib/githubApi";
 import Head from "next/head";
 import Post from "../interfaces/post";
-import { getRaindrops } from "../lib/raindrop";
-import { Bookmark } from "../interfaces/bookmark";
-import { SingleBookmark } from "../components/SingleBookmark";
-import { LinkButton } from "../components/LinkButton";
+import Link from "next/link";
 
 type Props = {
-  latestPost: Post;
-  bookmarks: Bookmark[];
+  posts: Post[];
 };
 
 export const revalidate = 3600; // revalidate every hour
 
-export default function Index({ latestPost, bookmarks }: Props) {
+export default function Index({ posts }: Props) {
   return (
     <>
       <Layout>
@@ -25,41 +19,37 @@ export default function Index({ latestPost, bookmarks }: Props) {
           <title>aamir j. blog</title>
         </Head>
         <Container>
-          <Intro />
-          <section className="md:mx-48 flex flex-col gap-8">
-            {latestPost && (
-              <HeroPost
-                title={latestPost.title}
-                coverImage={latestPost.coverImage}
-                date={latestPost.date}
-                slug={latestPost.slug}
-                excerpt={latestPost.excerpt}
-              />
-            )}
-            <div className="flex flex-row gap-4 justify-center">
-              <LinkButton href="/posts" className="bg-stone-700">
-                More Posts
-              </LinkButton>
+          <section className="md:mx-48 flex flex-col gap-12 py-8">
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight pt-8 text-stone-900 dark:text-stone-100">
+              <Link href="/" className="hover:underline">
+                aamir j
+              </Link>
+              .
+            </h2>
+            <div>
+              <h2 className="mb-8 text-2xl font-bold tracking-tight">
+                Blog Posts
+              </h2>
+              <ul className="flex flex-col gap-6">
+                {posts.map((post) => (
+                  <li key={post.slug} className="flex flex-col">
+                    <Link 
+                      href={`/posts/${post.slug}`}
+                      className="text-lg hover:text-stone-400 transition-colors"
+                    >
+                      {post.title}
+                    </Link>
+                    <span className="text-sm text-stone-500 dark:text-stone-400">
+                      {new Date(post.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            {bookmarks && (
-              <div className=" dark:bg-stone-600 bg-stone-200 p-8 rounded-md shadow-md">
-                <h2 className="mb-4 text-lg font-bold tracking-tighter leading-tight">
-                  Bookmarks
-                </h2>
-                <ul className="flex flex-col gap-8">
-                  {bookmarks.map((bookmark) => {
-                    return (
-                      <li key={bookmark._id}>
-                        <SingleBookmark bookmark={bookmark} />
-                      </li>
-                    );
-                  })}
-                </ul>
-                <div className="flex mt-4 justify-end">
-                  <LinkButton href="/bookmarks">More &rarr;</LinkButton>
-                </div>
-              </div>
-            )}
           </section>
         </Container>
       </Layout>
@@ -68,11 +58,9 @@ export default function Index({ latestPost, bookmarks }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const allPosts = await getAllPosts();
-
-  const bookmarks = (await getRaindrops())?.slice(0, 5) ?? null;
+  const posts = await getAllPosts();
 
   return {
-    props: { latestPost: allPosts.at(0) ?? null, bookmarks },
+    props: { posts },
   };
 };
