@@ -1,15 +1,22 @@
+import { format, parseISO } from "date-fns";
+import Head from "next/head";
+import Link from "next/link";
 import Container from "../components/container";
 import Layout from "../components/layout";
-import { getAllPosts } from "../lib/githubApi";
-import Head from "next/head";
 import Post from "../interfaces/post";
-import Link from "next/link";
+import { getAllPosts } from "../lib/githubApi";
 
 type Props = {
   posts: Post[];
 };
 
 export const revalidate = 3600; // revalidate every hour
+
+const dateParser = Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 
 export default function Index({ posts }: Props) {
   return (
@@ -27,24 +34,17 @@ export default function Index({ posts }: Props) {
               .
             </h2>
             <div>
-              <h2 className="mb-8 text-2xl font-bold tracking-tight">
-                Blog Posts
-              </h2>
               <ul className="flex flex-col gap-6">
                 {posts.map((post) => (
                   <li key={post.slug} className="flex flex-col">
-                    <Link 
+                    <Link
                       href={`/posts/${post.slug}`}
                       className="text-lg hover:text-stone-400 transition-colors"
                     >
                       {post.title}
                     </Link>
                     <span className="text-sm text-stone-500 dark:text-stone-400">
-                      {new Date(post.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
+                      {format(parseISO(post.date), "MMMM d, yyyy")}
                     </span>
                   </li>
                 ))}

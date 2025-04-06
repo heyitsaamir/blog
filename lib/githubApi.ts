@@ -1,9 +1,9 @@
-import grayMatter from "gray-matter";
-import { GH_USER, GH_REPO } from "./siteConfig";
-import slugify from "slugify";
 import { Octokit } from "@octokit/rest";
-import type PostType from "../interfaces/post";
 import { GetResponseDataTypeFromEndpointMethod } from "@octokit/types";
+import grayMatter from "gray-matter";
+import slugify from "slugify";
+import type PostType from "../interfaces/post";
+import { GH_REPO, GH_USER } from "./siteConfig";
 
 if (!process.env.GH_TOKEN) {
   throw new Error("Please set the GH_TOKEN environment variable");
@@ -80,6 +80,7 @@ function parseIssue(issue: GHIssue): PostType {
     slug = slugify(issue.number + "_" + title);
   }
   let date = data.data.date ?? issue.created_at;
+  console.log(title, date, data.data.date, issue.created_at);
   const labelNames = issue.labels
     .map((label) => (typeof label === "string" ? label : label.name))
     .filter((label): label is NonNullable<typeof label> => !!label);
