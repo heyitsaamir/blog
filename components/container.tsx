@@ -3,7 +3,7 @@ type Props = {
 };
 
 const Container = ({ children }: Props) => {
-  return <div className="container mx-auto bg-stone-900 dark:bg-stone-950">{children}</div>;
+  return <div className="container mx-auto">{children}</div>;
 };
 
 export default Container;

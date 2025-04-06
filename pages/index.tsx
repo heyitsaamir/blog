@@ -39,7 +39,7 @@ export default function Index({ posts }: Props) {
                   <li key={post.slug} className="flex flex-col">
                     <Link
                       href={`/posts/${post.slug}`}
-                      className="text-lg hover:text-stone-400 transition-colors"
+                      className="text-lg text-stone-900 dark:text-stone-100 hover:text-stone-600 dark:hover:text-stone-400 transition-colors"
                     >
                       {post.title}
                     </Link>
