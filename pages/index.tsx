@@ -28,7 +28,7 @@ export default function Index({ posts }: Props) {
         <Container>
           <section className="md:mx-48 flex flex-col gap-12 py-8">
             <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight pt-8 text-stone-900 dark:text-stone-100">
-              <Link href="/" className="hover:underline">
+              <Link href="/" className="hover:underline underline-offset-3">
                 aamir j
               </Link>
               .
