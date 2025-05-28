@@ -1,10 +1,9 @@
 import Container from "../../components/container";
-import MoreStories from "../../components/more-stories";
-import Layout from "../../components/layout";
-import { getAllPosts } from "../../lib/githubApi";
-import Post from "../../interfaces/post";
 import Header from "../../components/header";
-import Script from "next/script";
+import Layout from "../../components/layout";
+import StoriesList from "../../components/stories-list";
+import Post from "../../interfaces/post";
+import { getAllPosts } from "../../lib/githubApi";
 
 type Props = {
   allPosts: Post[];
@@ -17,7 +16,7 @@ export default function Index({ allPosts }: Props) {
         <Container>
           <Header />
           <section>
-            <MoreStories posts={allPosts} />
+            <StoriesList posts={allPosts} />
           </section>
         </Container>
       </Layout>

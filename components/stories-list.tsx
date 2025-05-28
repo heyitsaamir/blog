@@ -1,11 +1,11 @@
-import PostPreview from "./post-preview";
 import type Post from "../interfaces/post";
+import PostPreview from "./post-preview";
 
 type Props = {
   posts: Post[];
 };
 
-const MoreStories = ({ posts }: Props) => {
+const StoriesList = ({ posts }: Props) => {
   return (
     <>
       <h2 className="text-6xl font-bold text-center">Posts</h2>
@@ -25,4 +25,4 @@ const MoreStories = ({ posts }: Props) => {
   );
 };
 
-export default MoreStories;
+export default StoriesList;
