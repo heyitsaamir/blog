@@ -10,4 +10,12 @@
   time {
     @apply italic;
   }
+
+  pre:not(.dark) {
+    @apply bg-gray-100;
+  }
+
+  .dark pre {
+    @apply bg-gray-800;
+  }
 }

@@ -45,14 +45,19 @@ export default function Post({ post, morePosts }: Props) {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs";
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs"
+        import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@latest/dist/mermaid-layout-elk.esm.min.mjs"
+
+        // register ELK
+        mermaid.registerLayoutLoaders(elkLayouts)
+
+        const theme = localStorage.getItem('theme') ?? 'dark';
         mermaid.initialize({
           startOnLoad: true,  
           securityLevel: 'loose',
-          theme: 'dark',
-          themeVariables: {
-            darkMode: true,
-          },
+          theme: theme,
+          look: "handDrawn",
+          layout: "elk",
           sequence: {
             useMaxWidth: false,
           },
