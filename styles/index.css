@@ -11,6 +11,15 @@
     @apply italic;
   }
 
+  pre.mermaid {
+    width: calc(100vw - 20px);
+    margin-left: calc(-50vw + 50% + 10px);
+    text-align: center;
+    * {
+      margin: auto;
+    }
+  }
+
   pre:not(.dark) {
     @apply bg-gray-100;
     @apply text-stone-900;
