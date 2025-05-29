@@ -15,6 +15,8 @@ type Props = {
   morePosts: PostType[];
 };
 
+export const revalidate = 3600; // revalidate every hour
+
 export default function Post({ post, morePosts }: Props) {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
@@ -55,8 +57,8 @@ export default function Post({ post, morePosts }: Props) {
         mermaid.initialize({
           startOnLoad: true,  
           securityLevel: 'loose',
-          theme: theme,
           look: "handDrawn",
+          theme: theme,
           layout: "elk",
           sequence: {
             useMaxWidth: false,

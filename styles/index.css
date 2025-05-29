@@ -13,9 +13,11 @@
 
   pre:not(.dark) {
     @apply bg-gray-100;
+    @apply text-stone-900;
   }
 
   .dark pre {
     @apply bg-gray-800;
+    @apply text-stone-100;
   }
 }
