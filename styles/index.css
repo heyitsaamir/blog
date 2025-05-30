@@ -12,21 +12,12 @@
   }
 
   pre.mermaid {
+    @apply bg-transparent;
     width: calc(100vw - 20px);
     margin-left: calc(-50vw + 50% + 10px);
     text-align: center;
     * {
       margin: auto;
     }
-  }
-
-  pre:not(.dark) {
-    @apply bg-gray-100;
-    @apply text-stone-900;
-  }
-
-  .dark pre {
-    @apply bg-gray-800;
-    @apply text-stone-100;
   }
 }

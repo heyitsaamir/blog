@@ -56,9 +56,14 @@ export default function Post({ post, morePosts }: Props) {
         const theme = localStorage.getItem('theme') ?? 'dark';
         mermaid.initialize({
           startOnLoad: true,  
-          securityLevel: 'loose',
+          securityLevel: "loose",
           look: "handDrawn",
-          theme: theme,
+          theme: theme === 'dark' ? 'dark' : 'base',
+          themeVariables: theme === "light" ? {
+            'primaryColor': '#FADA7A',
+            'secondaryColor': '#FCE7C8',
+            'tertiaryColor': '#B1C29E',
+          } : undefined,
           layout: "elk",
           sequence: {
             useMaxWidth: false,
@@ -97,6 +102,7 @@ export async function getStaticProps({ params }: Params) {
         content,
       },
     },
+    revalidate: 3600, // revalidate every hour
   };
 }
 

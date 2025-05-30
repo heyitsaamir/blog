@@ -1,3 +1,4 @@
+import { GetStaticProps } from "next";
 import Container from "../../components/container";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
@@ -24,10 +25,10 @@ export default function Index({ allPosts }: Props) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const allPosts = await getAllPosts();
 
   return {
-    props: { allPosts },
+    props: { allPosts }, revalidate: 3600, // revalidate every hour
   };
 };
