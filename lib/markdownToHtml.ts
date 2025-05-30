@@ -11,6 +11,7 @@ import { unified } from "unified";
 export default async function markdownToHtml(markdown: string, theme?: 'dark' | 'light') {
   const result = await unified()
     .use(remarkParse)
+    .use(require('remark-prism'))
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
