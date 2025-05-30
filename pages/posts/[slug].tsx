@@ -67,7 +67,6 @@ export default function Post({ post, morePosts }: Props) {
         'secondaryColor': '#FCE7C8',
         'tertiaryColor': '#B1C29E',
         } : undefined,
-        layout: "elk",
         sequence: {
           useMaxWidth: isDesktop,
         },
