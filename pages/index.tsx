@@ -24,9 +24,8 @@ export default function Index({ posts }: Props) {
           <div>
             <p className="mb-12">
               <em>
-                Hi! I'm Aamir. I'm a software engineer. I love tinkering with code and trying out new technologies to build useful (and useless) things.
-                I currently work for Microsoft. In this blog, I talk about stuff I'm learning, things I find interesting, and sometimes just random thoughts.
-              </em>
+                Hi! I’m Aamir. I write code for a living at Microsoft and for fun everywhere else.
+This blog is where I dump things I’ve learned, ideas I’m curious about, and whatever nonsense I convinced myself was worth sharing.              </em>
             </p>
             <ul className="flex flex-col gap-6">
               {posts.map((post) => (
