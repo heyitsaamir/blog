@@ -53,7 +53,7 @@ export default function Post({ post, morePosts }: Props) {
       // register ELK
       mermaid.registerLayoutLoaders(elkLayouts)
 
-      const theme = localStorage.getItem('theme') ?? 'dark';
+      const theme = localStorage.getItem('theme') ?? 'light';
       // Only set useMaxWidth to true if viewport is big (desktop)
       const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
 
