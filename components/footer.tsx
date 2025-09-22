@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <footer className="border-t border-stone-700">
+    <footer className="border-t border-stone-300">
       <Container>
         <div className="py-6 text-center">
           <p className="text-sm text-stone-400 mb-2">
