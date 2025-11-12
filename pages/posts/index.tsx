@@ -4,7 +4,7 @@ import Header from "../../components/header";
 import Layout from "../../components/layout";
 import StoriesList from "../../components/stories-list";
 import Post from "../../interfaces/post";
-import { getAllPosts } from "../../lib/githubApi";
+import { getAllPosts } from "../../lib/postsApi";
 
 type Props = {
   allPosts: Post[];

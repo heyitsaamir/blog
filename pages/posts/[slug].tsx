@@ -7,7 +7,7 @@ import PostBody from "../../components/post-body";
 import PostHeader from "../../components/post-header";
 import PostTitle from "../../components/post-title";
 import type PostType from "../../interfaces/post";
-import { getAllPosts, getPostBySlug } from "../../lib/githubApi";
+import { getAllPosts, getPostBySlug } from "../../lib/postsApi";
 import markdownToHtml from "../../lib/markdownToHtml";
 
 type Props = {
@@ -37,6 +37,8 @@ export default function Post({ post, morePosts }: Props) {
             coverImage={post.coverImage}
             date={post.date}
             labels={post.labels}
+            source={post.source}
+            sourceUri={post.sourceUri}
           />
           <PostBody content={post.content} />
         </article>
@@ -119,6 +121,6 @@ export async function getStaticPaths() {
         },
       };
     }),
-    fallback: false,
+    fallback: 'blocking',
   };
 }

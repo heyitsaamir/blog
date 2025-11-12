@@ -49,24 +49,29 @@ export async function getAllPosts(page: number = 1) {
 export async function getPostBySlug(slug: string) {
   const realSlug = slug.replace(/\.md$/, "");
   const id = Number(realSlug.split("_")[0] ?? -1);
-  if (id === -1) {
+  if (isNaN(id) || id === -1) {
     return null;
   }
 
-  const result = await octokit.request(
-    "GET /repos/{owner}/{repo}/issues/{issue_number}",
-    {
-      issue_number: id,
-      owner: GH_USER,
-      repo: GH_REPO,
-      labels: publishedTags.join(","),
-      request: {
-        fetch: fetchWrapper,
+  try {
+    const result = await octokit.request(
+      "GET /repos/{owner}/{repo}/issues/{issue_number}",
+      {
+        issue_number: id,
+        owner: GH_USER,
+        repo: GH_REPO,
+        labels: publishedTags.join(","),
+        request: {
+          fetch: fetchWrapper,
+        },
       },
-    },
-  );
+    );
 
-  return parseIssue(result.data);
+    return parseIssue(result.data);
+  } catch (error) {
+    console.log(`GitHub API error for slug ${slug}: ${error instanceof Error ? error.message : ""}`);
+    return null;
+  }
 }
 
 function parseIssue(issue: GHIssue): PostType {
@@ -80,7 +85,13 @@ function parseIssue(issue: GHIssue): PostType {
     slug = slugify(issue.number + "_" + title);
   }
   let date = data.data.date ?? issue.created_at;
-  console.log(title, date, data.data.date, issue.created_at);
+  
+  // Fix malformed date formats (e.g., "2022-12-27T12:15:00-0800Z" should be "2022-12-27T12:15:00-08:00")
+  if (typeof date === 'string' && date.includes('Z') && date.match(/-\d{4}Z$/)) {
+    // Remove the Z and properly format the timezone offset
+    date = date.replace(/(-\d{2})(\d{2})Z$/, '$1:$2');
+  }
+  
   const labelNames = issue.labels
     .map((label) => (typeof label === "string" ? label : label.name))
     .filter((label): label is NonNullable<typeof label> => !!label);
@@ -93,5 +104,7 @@ function parseIssue(issue: GHIssue): PostType {
     excerpt: data.data.excerpt ?? "",
     labels: labelNames.filter((label) => !publishedTags.includes(label)),
     isDraft: labelNames.some((label) => label === "Draft"),
+    source: 'github',
+    sourceUri: issue.html_url,
   };
 }

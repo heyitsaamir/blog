@@ -9,9 +9,11 @@ type Props = {
   coverImage?: string;
   date: string;
   labels?: string[];
+  source?: 'github' | 'leaflet';
+  sourceUri?: string;
 };
 
-const PostHeader = ({ title, coverImage, date, labels }: Props) => {
+const PostHeader = ({ title, coverImage, date, labels, source, sourceUri }: Props) => {
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -37,6 +39,11 @@ const PostHeader = ({ title, coverImage, date, labels }: Props) => {
       <div className="max-w-2xl mx-auto">
         <div className="mb-6 text-lg text-center">
           <DateFormatter dateString={date} />
+          {source === 'leaflet' && sourceUri && (
+            <div className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+              Published on <a href={sourceUri} target="_blank" rel="noopener noreferrer" className="hover:text-stone-700 dark:hover:text-stone-300">Leaflet</a>
+            </div>
+          )}
         </div>
       </div>
     </>

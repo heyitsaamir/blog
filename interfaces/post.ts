@@ -12,6 +12,8 @@ type PostType = {
   content: string;
   labels: string[];
   isDraft?: boolean;
+  source: 'github' | 'leaflet';
+  sourceUri?: string;
 };
 
 export default PostType;

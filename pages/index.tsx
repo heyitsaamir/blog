@@ -2,7 +2,7 @@ import { format, parseISO } from "date-fns";
 import Link from "next/link";
 import Layout from "../components/layout";
 import Post from "../interfaces/post";
-import { getAllPosts } from "../lib/githubApi";
+import { getAllPosts } from "../lib/postsApi";
 
 type Props = {
   posts: Post[];
