@@ -10,7 +10,7 @@ export async function getAllPosts(page: number = 1): Promise<PostType[]> {
     ]);
 
     const allPosts = [...(githubPosts || []), ...leafletPosts];
-    
+
     // Filter out invalid posts and sort by date (newest first)
     return allPosts
       .filter((post) => post && !post.isDraft && post.title && post.date && post.slug)
@@ -21,12 +21,12 @@ export async function getAllPosts(page: number = 1): Promise<PostType[]> {
       .sort((a, b) => {
         const dateA = new Date(a.date).getTime();
         const dateB = new Date(b.date).getTime();
-        
+
         // Handle NaN dates by putting them at the end
         if (isNaN(dateA) && isNaN(dateB)) return 0;
         if (isNaN(dateA)) return 1;
         if (isNaN(dateB)) return -1;
-        
+
         return dateB - dateA;
       });
   } catch (error) {
