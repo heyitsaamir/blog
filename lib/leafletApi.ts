@@ -19,6 +19,24 @@ interface ATProtocolRecord<T = unknown> {
   value: T;
 }
 
+interface RichTextFacet {
+  index: {
+    byteStart: number;
+    byteEnd: number;
+  };
+  features: Array<{
+    $type: string;
+    uri?: string;
+  }>;
+}
+
+interface LeafletBlock {
+  $type: string;
+  plaintext?: string;
+  level?: number;
+  facets?: RichTextFacet[];
+}
+
 interface DocumentValue {
   title: string;
   description?: string;
@@ -26,11 +44,7 @@ interface DocumentValue {
   publication: string;
   pages?: Array<{
     blocks?: Array<{
-      block: {
-        $type: string;
-        plaintext?: string;
-        level?: number;
-      };
+      block: LeafletBlock;
     }>;
   }>;
 }
@@ -123,36 +137,111 @@ export async function getLeafletPostBySlug(slug: string): Promise<PostType | nul
   }
 }
 
+function applyRichTextFormatting(text: string, facets?: RichTextFacet[]): string {
+  if (!facets || facets.length === 0) {
+    return text;
+  }
+
+  // Convert string to UTF-8 bytes for proper offset handling
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  const bytes = encoder.encode(text);
+
+  // Sort facets by start position (descending) to apply from end to start
+  const sortedFacets = [...facets].sort((a, b) => b.index.byteStart - a.index.byteStart);
+
+  let result = text;
+
+  for (const facet of sortedFacets) {
+    const { byteStart, byteEnd } = facet.index;
+
+    // Extract the portion to format using byte offsets
+    const beforeBytes = bytes.slice(0, byteStart);
+    const targetBytes = bytes.slice(byteStart, byteEnd);
+    const afterBytes = bytes.slice(byteEnd);
+
+    const before = decoder.decode(beforeBytes);
+    const target = decoder.decode(targetBytes);
+    const after = decoder.decode(afterBytes);
+
+    // Apply formatting based on feature types
+    let formatted = target;
+    for (const feature of facet.features) {
+      switch (feature.$type) {
+        case 'pub.leaflet.richtext.facet#link':
+          if (feature.uri) {
+            formatted = `[${formatted}](${feature.uri})`;
+          }
+          break;
+        case 'pub.leaflet.richtext.facet#bold':
+          formatted = `**${formatted}**`;
+          break;
+        case 'pub.leaflet.richtext.facet#italic':
+          formatted = `*${formatted}*`;
+          break;
+        case 'pub.leaflet.richtext.facet#strikethrough':
+          formatted = `~~${formatted}~~`;
+          break;
+        case 'pub.leaflet.richtext.facet#code':
+          formatted = `\`${formatted}\``;
+          break;
+      }
+    }
+
+    result = before + formatted + after;
+  }
+
+  return result;
+}
+
 function convertLeafletToMarkdown(document: DocumentValue): string {
   if (!document.pages || document.pages.length === 0) {
     return "";
   }
 
   let markdown = "";
-  
+
   for (const page of document.pages) {
     if (!page.blocks) continue;
-    
+
     for (const blockWrapper of page.blocks) {
       const block = blockWrapper.block;
-      
+
       if (!block.plaintext) continue;
-      
+
+      // Apply rich text formatting
+      const formattedText = applyRichTextFormatting(block.plaintext, block.facets);
+
       switch (block.$type) {
         case "pub.leaflet.blocks.header":
           const level = block.level || 1;
-          markdown += `${"#".repeat(level)} ${block.plaintext}\n\n`;
+          markdown += `${"#".repeat(level)} ${formattedText}\n\n`;
+          break;
+        case "pub.leaflet.blocks.blockquote":
+          markdown += `> ${formattedText}\n\n`;
+          break;
+        case "pub.leaflet.blocks.code":
+          markdown += `\`\`\`\n${block.plaintext}\n\`\`\`\n\n`;
+          break;
+        case "pub.leaflet.blocks.orderedList":
+        case "pub.leaflet.blocks.unorderedList":
+          // Lists are typically handled as separate items
+          markdown += `- ${formattedText}\n`;
+          break;
+        case "pub.leaflet.blocks.horizontalRule":
+          markdown += `---\n\n`;
           break;
         case "pub.leaflet.blocks.text":
-          markdown += `${block.plaintext}\n\n`;
+          markdown += `${formattedText}\n\n`;
           break;
         default:
-          markdown += `${block.plaintext}\n\n`;
+          // Fallback for unknown block types
+          markdown += `${formattedText}\n\n`;
           break;
       }
     }
   }
-  
+
   return markdown.trim();
 }
 
