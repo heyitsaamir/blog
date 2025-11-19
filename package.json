@@ -7,6 +7,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@microsoft/clarity": "^1.0.0",
     "@octokit/rest": "^20.0.2",
     "@tailwindcss/typography": "^0.5.8",
     "axios": "^1.2.2",
