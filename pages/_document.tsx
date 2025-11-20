@@ -1,9 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from 'next/script'
-import Clarity from '@microsoft/clarity';
-const projectId = "qyxlvb5uz3"
-
-Clarity.init(projectId)
 
 export default function Document() {
     return (
