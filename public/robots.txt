@@ -1,11 +1,11 @@
 # Robots.txt for Aamir J. Blog
-# https://blog.aamirjawaid.com
+# https://aamirj.com
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://blog.aamirjawaid.com/sitemap.xml
+Sitemap: https://aamirj.com/sitemap.xml
 
 # Disallow admin/API routes
 Disallow: /api/
