@@ -5,6 +5,7 @@ import Layout from "../../components/layout";
 import StoriesList from "../../components/stories-list";
 import Post from "../../interfaces/post";
 import { getAllPosts } from "../../lib/postsApi";
+import { SITE_URL } from "../../lib/constants";
 
 type Props = {
   allPosts: Post[];
@@ -13,7 +14,13 @@ type Props = {
 export default function Index({ allPosts }: Props) {
   return (
     <>
-      <Layout>
+      <Layout
+        meta={{
+          title: "All Posts",
+          description: "Browse all blog posts by Aamir Jawaid about life, tech, and other things.",
+          canonicalUrl: `${SITE_URL}/posts`,
+        }}
+      >
         <Container>
           <Header />
           <section>
