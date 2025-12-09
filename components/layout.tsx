@@ -10,12 +10,22 @@ type Props = {
   children: React.ReactNode;
   head?: React.ReactNode;
   isIndexPage?: boolean;
+  meta?: {
+    title?: string;
+    description?: string;
+    ogImage?: string;
+    ogType?: "website" | "article";
+    canonicalUrl?: string;
+    publishedTime?: string;
+    modifiedTime?: string;
+    tags?: string[];
+  };
 };
 
-const Layout = ({ children, head, isIndexPage }: Props) => {
+const Layout = ({ children, head, isIndexPage, meta }: Props) => {
   return (
     <>
-      <Meta />
+      <Meta {...meta} />
       {head && <Head>{head}</Head>}
       <div className="min-h-screen bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-stone-100 flex flex-col gap-8">
         <div className="fixed top-4 right-4">

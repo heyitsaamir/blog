@@ -1,0 +1,11 @@
+# Robots.txt for Aamir J. Blog
+# https://aamirj.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://aamirj.com/sitemap.xml
+
+# Disallow admin/API routes
+Disallow: /api/

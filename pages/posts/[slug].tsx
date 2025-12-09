@@ -9,6 +9,11 @@ import PostTitle from "../../components/post-title";
 import type PostType from "../../interfaces/post";
 import { getAllPosts, getPostBySlug } from "../../lib/postsApi";
 import markdownToHtml from "../../lib/markdownToHtml";
+import {
+  SITE_URL,
+  SITE_NAME,
+  AUTHOR_NAME,
+} from "../../lib/constants";
 
 type Props = {
   post: PostType;
@@ -22,14 +27,55 @@ export default function Post({ post, morePosts }: Props) {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
+
+  const canonicalUrl = `${SITE_URL}/posts/${post?.slug}`;
+  const postDescription = post?.excerpt || `${post?.title} - Read more on ${SITE_NAME}`;
+
+  // JSON-LD structured data for blog posts
+  const structuredData = post ? {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": postDescription,
+    "author": {
+      "@type": "Person",
+      "name": AUTHOR_NAME,
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": AUTHOR_NAME,
+    },
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    "url": canonicalUrl,
+    ...(post.ogImage?.url && { "image": post.ogImage.url }),
+    ...(post.labels?.length && { "keywords": post.labels.join(", ") }),
+  } : null;
+
   return (
-    <Layout>
+    <Layout
+      meta={{
+        title: post?.title,
+        description: postDescription,
+        ogImage: post?.ogImage?.url,
+        ogType: "article",
+        canonicalUrl,
+        publishedTime: post?.date,
+        tags: post?.labels,
+      }}
+    >
       {router.isFallback ? <PostTitle>Loading…</PostTitle> : (
         <article className="mb-32 mt-20">
           <Head>
-            <title>{post.title}</title>
-            {post.ogImage?.url && (
-              <meta property="og:image" content={post.ogImage.url} />
+            {structuredData && (
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+              />
             )}
           </Head>
           <PostHeader
