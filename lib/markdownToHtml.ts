@@ -1,5 +1,6 @@
 import rehypeFormat from "rehype-format";
 import rehypeMermaid from "rehype-mermaid";
+import rehypePrismPlus from "rehype-prism-plus";
 import rehypeRaw from "rehype-raw";
 // import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import rehypeStringify from "rehype-stringify";
@@ -11,7 +12,6 @@ import { unified } from "unified";
 export default async function markdownToHtml(markdown: string, theme?: 'dark' | 'light') {
   const result = await unified()
     .use(remarkParse)
-    .use(require('remark-prism'))
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
@@ -25,6 +25,7 @@ export default async function markdownToHtml(markdown: string, theme?: 'dark' | 
     .use(rehypeMermaid, {
       strategy: "pre-mermaid"
     })
+    .use(rehypePrismPlus, { ignoreMissing: true })
     .use(rehypeFormat)
     .use(rehypeStringify)
     .process(markdown);
