@@ -11,14 +11,37 @@
     @apply italic;
   }
 
-  pre.mermaid {
-    @apply bg-transparent;
-    width: calc(100vw - 20px);
-    margin-left: calc(-50vw + 50% + 10px);
-    text-align: center;
-    * {
-      margin: auto;
-    }
+  /* Diagrams rendered at build time by pele (lib/rehypePele.ts) */
+  .pele-diagram {
+    @apply my-8 flex justify-center;
+  }
+
+  .pele-diagram svg {
+    @apply m-0 max-w-full h-auto;
+  }
+
+  /* Light theme: keeps the blog's previous warm Mermaid palette */
+  .pele {
+    --pele-bg: #fafaf9; /* stone-50, page background */
+    --pele-fg: #1f1f1f;
+    --pele-muted: #6e6e6e;
+    --pele-line: #3f3f3f;
+    --pele-surface: #fada7a;
+    --pele-surface-alt: #fce7c8;
+    --pele-border: #b38f1f;
+    --pele-accent: #b1c29e;
+  }
+
+  /* Dark theme follows the site's .dark class; switches without re-rendering */
+  .dark .pele {
+    --pele-bg: #1c1917; /* stone-900 */
+    --pele-fg: #e6e6e6;
+    --pele-muted: #a0a0a0;
+    --pele-line: #c8c8c8;
+    --pele-surface: #2f3542;
+    --pele-surface-alt: #3b4252;
+    --pele-border: #7a8396;
+    --pele-accent: #8fa876;
   }
 
   main {

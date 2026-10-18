@@ -1,5 +1,5 @@
 import rehypeFormat from "rehype-format";
-import rehypeMermaid from "rehype-mermaid";
+import rehypePele from "./rehypePele";
 import rehypePrismPlus from "rehype-prism-plus";
 import rehypeRaw from "rehype-raw";
 // import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
@@ -19,12 +19,10 @@ export default async function markdownToHtml(markdown: string, theme?: 'dark' | 
     //  ...defaultSchema,
     //  attributes: {
     //    ...defaultSchema.attributes,
-    //    "*": ["className"], // To allow mermaid classes to continue to work
+    //    "*": ["className"], // To allow diagram classes to continue to work
     //  },
     //})
-    .use(rehypeMermaid, {
-      strategy: "pre-mermaid"
-    })
+    .use(rehypePele)
     .use(rehypePrismPlus, { ignoreMissing: true })
     .use(rehypeFormat)
     .use(rehypeStringify)
