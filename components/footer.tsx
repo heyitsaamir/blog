@@ -9,7 +9,7 @@ const Footer = () => {
 			<Container>
 				<div className="py-6 text-center">
 					<p className="text-sm text-stone-400 mb-2">
-						Built sporadically in Seattle • © {year} Aamir Jawaid
+						Built sporadically in Seattle <span aria-hidden="true">🏙️</span> • © {year} Aamir Jawaid
 					</p>
 					<div className="flex justify-center gap-4">
 						<Link
